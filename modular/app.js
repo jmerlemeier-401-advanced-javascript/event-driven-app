@@ -1,25 +1,35 @@
 'use strict';
 
-const fs = require('fs');
+const { readFile, writeFile } = require('./file-module');
 
-/**
- * 
- * @param {*} file 
- */
-const alterFile = (file) => {
-  fs.readFile( file, (err, data) => {//util.promisify
-    if(err) { throw err; }
-    let text = data.toString().toUpperCase(); //could be broken down.
-    fs.writeFile( file, Buffer.from(text), (err, data) => {
-      if(err) { throw err; }
-      console.log(`${file} saved`);
-      //eventemitter.emit()
-    });
-  });
-};
+// const alterFile = (file) => {
+//   // 1. 
+//   fs.readFile( file, (err, data) => {//util.promisify
+//     if(err) { throw err; }
+
+//     //2. 
+//     let text = data.toString().toUpperCase(); 
+
+//     //3. 
+//     fs.writeFile( file, Buffer.from(text), (err, data) => {
+//       if(err) { throw err; }
+//       console.log(`${file} saved`);
+//       //eventemitter.emit()
+//     });
+//   });
+// };
+
+// let file = process.argv.slice(2).shift();
+// alterFile(file);
+
+// refactoring checklist
 
 let file = process.argv.slice(2).shift();
-alterFile(file);
+const text = readFile(file);
+writeFile(text);
+
+
+
 
 //================ from lecture ================
 // const events = require('./events');
