@@ -15,5 +15,5 @@ EventEmitter.on('file-uppercase', (payload) =>{
 //logger
 EventEmitter.on('file-write', () =>{
   console.log('file is ');
-})
+});
 

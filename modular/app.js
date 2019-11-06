@@ -5,7 +5,8 @@ require('./file-events');
 
 
 let file = process.argv.slice(2).shift();
-const text = readFile(file).then(writeFile);
+const text = readFile(file);
+// .then(writeFile);
 // const write = writeFile(file, data);
 
 
