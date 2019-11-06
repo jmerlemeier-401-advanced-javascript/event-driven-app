@@ -1,32 +1,12 @@
 'use strict';
 
 const { readFile, writeFile } = require('./file-module');
+require('./file-events');
 
-// const alterFile = (file) => {
-//   // 1. 
-//   fs.readFile( file, (err, data) => {//util.promisify
-//     if(err) { throw err; }
-
-//     //2. 
-//     let text = data.toString().toUpperCase(); 
-
-//     //3. 
-//     fs.writeFile( file, Buffer.from(text), (err, data) => {
-//       if(err) { throw err; }
-//       console.log(`${file} saved`);
-//       //eventemitter.emit()
-//     });
-//   });
-// };
-
-// let file = process.argv.slice(2).shift();
-// alterFile(file);
-
-// refactoring checklist
 
 let file = process.argv.slice(2).shift();
-const text = readFile(file);
-writeFile(text);
+const text = readFile(file).then(writeFile);
+// const write = writeFile(file, data);
 
 
 

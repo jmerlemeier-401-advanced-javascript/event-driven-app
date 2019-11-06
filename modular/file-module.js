@@ -1,6 +1,9 @@
 'use strict';
 
 const fs = require('fs');
+require('./file-events');
+
+const EventEmitter = require('./events');
 
 /**
  * fs.readFile(filename[, options], callback) - Asynchronously reads the entire contents of a file.
@@ -8,20 +11,26 @@ const fs = require('fs');
  * @param {function} callback - (err, data) 
  * @returns raw buffer
  */
-const readFile = (filename, callback) => {
-  fs.readFile( file, (err, data) => {//util.promisify
+const readFile = (filename) => {
+  fs.readFile( filename, (err, data) => {//util.promisify
     if(err) throw err;
     console.log(data); //data is the contents of the file.
+    EventEmitter.emit('file-read', upperCase(data));
   });  
 };
 
-
-//2. 
-function upperCase(data){
-  let text =  data.toString().toUpperCase();
-  fs.writeFile(file, text);
+/**
+ * Function Uppercase - takes in a buffer, stringifies, uppercases it, and then turns it back into a buffer.
+ * @param {Buffer} buffer 
+ * @returns {Buffer}
+ */
+function upperCase(buffer){
+  //stringify buffer and uppercase it
+  const text = buffer.toString().toUpperCase();
+  //re-bufferize it
+  console.log(text);
+  return Buffer.from(text);
 }
-
 
 /**
  * fs.writeFile(filename, data[, options], callback) - Asynchronously writes data to a file, replacing the file if it already exists. data can be a string or a buffer.
@@ -29,23 +38,20 @@ function upperCase(data){
  * @param {String | Buffer} data 
  * @param {function} callback
  */
-const writeFile = (filename, data, callback ) => {
-  fs.writeFile( filename, data,(err, data) => {
+const writeFile = (filename, data) => {
+  fs.writeFile( filename, data ,(err, data) => {
     if(err) throw err;
     console.log(`${filename} saved`);
     //eventemitter.emit()
   });
 };
 
-let file = process.argv.slice(2).shift();
-
+// let file = process.argv.slice(2).shift();
 
 module.exports = {
   readFile,
   writeFile,
 };
-
-
 
 
 //================ from lecture ================
