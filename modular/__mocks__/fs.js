@@ -1,5 +1,7 @@
 'use strict';
 
+let fileContents = 'Test String';
+
 exports.readFile = (file, cb) => {
   if (!file || file.match(/bad/i)){
     cb('invalid file'); //errorfirst callback
